@@ -13,7 +13,7 @@ public class FileParser2 {
 
         System.out.println(spec);
         System.out.println(spec.getByteOrder());
-//        System.out.println(spec.getTable());
+        System.out.println(spec.getRootNode());
     }
 
     public static void main(String[] args) throws Exception {
