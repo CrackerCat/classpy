@@ -1,6 +1,6 @@
 package com.github.zxh.classpy;
 
-import com.moandjiezana.toml.Toml;
+import com.github.zxh.classpy.spec.FileSpec;
 
 import java.net.URL;
 import java.nio.file.Files;
@@ -9,10 +9,11 @@ import java.nio.file.Paths;
 public class FileParser2 {
 
     public static void parse(byte[] data) {
-        Toml spec = new Toml().read(FileParser2.class.getResourceAsStream("/java_class.toml"));
+        FileSpec spec = new FileSpec("/java_class.toml");
+
         System.out.println(spec);
-        System.out.println(spec.getString("endianness"));
-        System.out.println(spec.getString("root_node"));
+        System.out.println(spec.getByteOrder());
+//        System.out.println(spec.getTable());
     }
 
     public static void main(String[] args) throws Exception {

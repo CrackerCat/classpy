@@ -2,7 +2,7 @@
 # $expr
 
 # https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-4.html
-endianness = "big-endian"
+byte_order = "big-endian"
 root_node = "ClassFile"
 
 #ClassFile {
