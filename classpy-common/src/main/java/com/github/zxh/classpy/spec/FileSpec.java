@@ -38,4 +38,9 @@ public class FileSpec {
         return val;
     }
 
+    // TODO
+    public Object get(String key) {
+        return spec.toMap().get(key);
+    }
+
 }

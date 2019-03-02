@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Base class for all file parts.
  */
-public abstract class FilePart {
+public class FilePart {
     
     private String name;
     private String desc; // description
