@@ -1,9 +1,8 @@
-package com.github.zxh.classpy;
+package com.github.zxh.classpy.spec;
 
 import com.github.zxh.classpy.common.BytesReader;
 import com.github.zxh.classpy.common.FilePart;
-import com.github.zxh.classpy.spec.FileSpec;
-import com.github.zxh.classpy.spec.Int32;
+import com.github.zxh.classpy.spec.Builtin.*;
 
 import java.net.URL;
 import java.nio.file.Files;
@@ -33,7 +32,7 @@ public class FileParser2 {
             String partSpecStr = partSpec.toString();
             if (partSpecStr.startsWith("&") && !partSpecStr.contains("[")) {
                 if (partSpecStr.equals("&u32")) {
-                    Int32 u32 = new Int32();
+                    Uint32 u32 = new Uint32();
                     u32.read(reader);
                     root.add(partName, u32);
                 } else {
@@ -47,7 +46,7 @@ public class FileParser2 {
     }
 
     public static void main(String[] args) throws Exception {
-        URL classURL = FileParser2.class.getResource("/com/github/zxh/classpy/FileParser2.class");
+        URL classURL = FileParser2.class.getResource("/com/github/zxh/classpy/spec/FileParser2.class");
         byte[] classData = Files.readAllBytes(Paths.get(classURL.toURI()));
         new FileParser2(classData).parse();
     }
