@@ -1,9 +1,12 @@
 # &def
 # $expr
+# i32,u32,i64,u64,f32,f64
 
 # https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-4.html
 byte_order = "big-endian"
 root_node = "ClassFile"
+u2 = "&u16"
+u4 = "&u32"
 
 #ClassFile {
 #    u4             magic;
