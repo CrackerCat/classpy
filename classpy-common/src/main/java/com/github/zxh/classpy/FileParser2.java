@@ -3,6 +3,7 @@ package com.github.zxh.classpy;
 import com.github.zxh.classpy.common.BytesReader;
 import com.github.zxh.classpy.common.FilePart;
 import com.github.zxh.classpy.spec.FileSpec;
+import com.github.zxh.classpy.spec.Int32;
 
 import java.net.URL;
 import java.nio.file.Files;
@@ -21,9 +22,6 @@ public class FileParser2 {
     }
 
     public void parse() {
-        System.out.println(spec);
-        System.out.println(spec.getByteOrder());
-        System.out.println(spec.getRootNode());
         spec.getRootNode().entrySet().forEach(e -> {
             parse(e.getKey(), e.getValue());
         });
@@ -34,8 +32,10 @@ public class FileParser2 {
         if (partSpec instanceof String) {
             String partSpecStr = partSpec.toString();
             if (partSpecStr.startsWith("&") && !partSpecStr.contains("[")) {
-                if (partSpecStr.equals("u32")) {
-
+                if (partSpecStr.equals("&u32")) {
+                    Int32 u32 = new Int32();
+                    u32.read(reader);
+                    root.add(partName, u32);
                 } else {
                     String referencedSpecName = partSpecStr.substring(1);
                     Object referencedSpec = spec.get(referencedSpecName);
@@ -49,7 +49,6 @@ public class FileParser2 {
     public static void main(String[] args) throws Exception {
         URL classURL = FileParser2.class.getResource("/com/github/zxh/classpy/FileParser2.class");
         byte[] classData = Files.readAllBytes(Paths.get(classURL.toURI()));
-        System.out.println(classData);
         new FileParser2(classData).parse();
     }
 

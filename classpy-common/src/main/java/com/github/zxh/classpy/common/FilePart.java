@@ -45,7 +45,7 @@ public class FilePart {
         return null;
     }
 
-    protected final void add(String name, FilePart subPart) {
+    public final void add(String name, FilePart subPart) {
         if (name != null) {
             subPart.setName(name);
         }
@@ -77,6 +77,16 @@ public class FilePart {
         }
 
         return getClass().getSimpleName();
+    }
+
+    public void read(BytesReader reader) {
+        offset = reader.getPosition();
+        readContent(reader);
+        length = reader.getPosition() - offset;
+    }
+
+    protected void readContent(BytesReader reader) {
+        throw new UnsupportedOperationException(); // TODO
     }
 
 }
