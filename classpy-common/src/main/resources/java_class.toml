@@ -81,6 +81,40 @@ tag = "&u1"
 length = "&u2"
 bytes = "&u8[$length]"
 
+#CONSTANT_Integer_info {
+#    u1 tag;
+#    u4 bytes;
+#}
+[CONSTANT_Integer_info]
+tag = "&u1"
+val = "&i32"
+
+#CONSTANT_Float_info {
+#    u1 tag;
+#    u4 bytes;
+#}
+[CONSTANT_Float_info]
+tag = "&u1"
+val = "&f32"
+
+#CONSTANT_Long_info {
+#    u1 tag;
+#    u4 high_bytes;
+#    u4 low_bytes;
+#}
+[CONSTANT_Long_info]
+tag = "&u1"
+val = "&i64"
+
+#CONSTANT_Double_info {
+#    u1 tag;
+#    u4 high_bytes;
+#    u4 low_bytes;
+#}
+[CONSTANT_Double_info]
+tag = "&u1"
+val = "&f64"
+
 [field_info]
 [method_info]
 [attribute_info]
