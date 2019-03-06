@@ -48,6 +48,10 @@ public class FilePart {
         return null;
     }
 
+    public final void add(FilePart subPart) {
+        add(null, subPart);
+    }
+
     public final void add(String name, FilePart subPart) {
         if (name != null) {
             subPart.setName(name);

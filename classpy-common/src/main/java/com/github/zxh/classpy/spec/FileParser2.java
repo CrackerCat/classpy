@@ -47,27 +47,43 @@ public class FileParser2 {
     private void parse(String partName, String partSpec, String partFormatter) {
         if (partSpec.startsWith("&") && !partSpec.contains("[")) {
             if (partSpec.equals("&u16")) {
-                Uint16 u16 = new Uint16();
-                u16.read(reader);
-                root.add(partName, u16);
-                if (partFormatter != null && !partFormatter.isEmpty()) {
-                    u16.setDesc(String.format(partFormatter, u16.getVal()));
-                } else {
-                    u16.setDesc(u16.getVal().toString());
-                }
+                root.add(parseU16(reader, partName, partFormatter));
             } else if (partSpec.equals("&u32")) {
-                Uint32 u32 = new Uint32();
-                u32.read(reader);
-                root.add(partName, u32);
-                if (partFormatter != null && !partFormatter.isEmpty()) {
-                    u32.setDesc(String.format(partFormatter, u32.getVal()));
-                }
+                root.add(parseU32(reader, partName, partFormatter));
             } else {
                 String referencedSpecName = partSpec.substring(1);
                 Object referencedSpec = spec.get(referencedSpecName);
                 parse(partName, referencedSpec, partFormatter);
             }
         }
+    }
+
+    private static Uint16 parseU16(BytesReader reader,
+                                   String name,
+                                   String formatter) {
+        Uint16 u16 = new Uint16();
+        u16.read(reader);
+        u16.setName(name);
+        if (formatter != null && !formatter.isEmpty()) {
+            u16.setDesc(String.format(formatter, u16.getVal()));
+        } else {
+            u16.setDesc(u16.getVal().toString());
+        }
+        return u16;
+    }
+
+    private static Uint32 parseU32(BytesReader reader,
+                                   String name,
+                                   String formatter) {
+        Uint32 u32 = new Uint32();
+        u32.read(reader);
+        u32.setName(name);
+        if (formatter != null && !formatter.isEmpty()) {
+            u32.setDesc(String.format(formatter, u32.getVal()));
+        } else {
+            u32.setDesc(u32.getVal().toString());
+        }
+        return u32;
     }
 
     public static void main(String[] args) throws Exception {
