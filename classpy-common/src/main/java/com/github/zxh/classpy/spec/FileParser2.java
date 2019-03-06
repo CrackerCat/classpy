@@ -46,7 +46,16 @@ public class FileParser2 {
 
     private void parse(String partName, String partSpec, String partFormatter) {
         if (partSpec.startsWith("&") && !partSpec.contains("[")) {
-            if (partSpec.startsWith("&u32")) {
+            if (partSpec.equals("&u16")) {
+                Uint16 u16 = new Uint16();
+                u16.read(reader);
+                root.add(partName, u16);
+                if (partFormatter != null && !partFormatter.isEmpty()) {
+                    u16.setDesc(String.format(partFormatter, u16.getVal()));
+                } else {
+                    u16.setDesc(Integer.toString(u16.getVal()));
+                }
+            } else if (partSpec.equals("&u32")) {
                 Uint32 u32 = new Uint32();
                 u32.read(reader);
                 root.add(partName, u32);
