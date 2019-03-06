@@ -20,29 +20,40 @@ public class FileParser2 {
         root = new FilePart();
     }
 
-    public void parse() {
+    public FilePart parse() {
         spec.getRootNode().entrySet().forEach(e -> {
             parse(e.getKey(), e.getValue());
         });
+        return root;
     }
 
     private void parse(String partName, Object partSpec) {
         System.out.println("part: " + partName + ", spec: " + partSpec);
         if (partSpec instanceof String) {
             String partSpecStr = partSpec.toString();
-            if (partSpecStr.startsWith("&") && !partSpecStr.contains("[")) {
-                if (partSpecStr.equals("&u32")) {
-                    Uint32 u32 = new Uint32();
-                    u32.read(reader);
-                    root.add(partName, u32);
-                } else {
-                    String referencedSpecName = partSpecStr.substring(1);
-                    Object referencedSpec = spec.get(referencedSpecName);
-                    parse(partName, referencedSpec);
-                }
+            int colonIdx = partSpecStr.indexOf(':');
+            if (colonIdx < 0) {
+                parse(partName, partSpecStr, null);
+            } else {
+                parse(partName,
+                        partSpecStr.substring(0, colonIdx),
+                        partSpecStr.substring(colonIdx));
             }
         }
+    }
 
+    private void parse(String partName, String partSpec, String partFormatter) {
+        if (partSpec.startsWith("&") && !partSpec.contains("[")) {
+            if (partSpec.startsWith("&u32")) {
+                Uint32 u32 = new Uint32();
+                u32.read(reader);
+                root.add(partName, u32);
+            } else {
+                String referencedSpecName = partSpec.substring(1);
+                Object referencedSpec = spec.get(referencedSpecName);
+                parse(partName, referencedSpec);
+            }
+        }
     }
 
     public static void main(String[] args) throws Exception {
