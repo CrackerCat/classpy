@@ -20,6 +20,10 @@ public class Builtin {
 
         private long val;
 
+        public long getVal() {
+            return val;
+        }
+
         @Override
         protected void readContent(BytesReader reader) {
             val = reader.readUnsignedInt();

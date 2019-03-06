@@ -22,22 +22,24 @@ public class FileParser2 {
 
     public FilePart parse() {
         spec.getRootNode().entrySet().forEach(e -> {
-            parse(e.getKey(), e.getValue());
+            parse(e.getKey(), e.getValue(), null);
         });
         return root;
     }
 
-    private void parse(String partName, Object partSpec) {
+    private void parse(String partName, Object partSpec, String partFormatter) {
         System.out.println("part: " + partName + ", spec: " + partSpec);
         if (partSpec instanceof String) {
             String partSpecStr = partSpec.toString();
             int colonIdx = partSpecStr.indexOf(':');
-            if (colonIdx < 0) {
+            if (partFormatter != null) {
+                parse(partName, partSpecStr, partFormatter);
+            } else if (colonIdx < 0) {
                 parse(partName, partSpecStr, null);
             } else {
                 parse(partName,
                         partSpecStr.substring(0, colonIdx),
-                        partSpecStr.substring(colonIdx));
+                        partSpecStr.substring(colonIdx + 1));
             }
         }
     }
@@ -48,10 +50,13 @@ public class FileParser2 {
                 Uint32 u32 = new Uint32();
                 u32.read(reader);
                 root.add(partName, u32);
+                if (partFormatter != null && !partFormatter.isEmpty()) {
+                    u32.setDesc(String.format(partFormatter, u32.getVal()));
+                }
             } else {
                 String referencedSpecName = partSpec.substring(1);
                 Object referencedSpec = spec.get(referencedSpecName);
-                parse(partName, referencedSpec);
+                parse(partName, referencedSpec, partFormatter);
             }
         }
     }
