@@ -5,6 +5,7 @@
 # https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-4.html
 byte_order = "big-endian"
 root_node = "ClassFile"
+u1 = "&u8"
 u2 = "&u16"
 u4 = "&u32"
 
@@ -30,7 +31,7 @@ u4 = "&u32"
 magic = "&u4:0x%X"
 minor_version = "&u2"
 major_version = "&u2"
-#constant_pool_count = "&u2"
+constant_pool_count = "&u2"
 #constant_pool = "&cp_info[${constant_pool_count - 1}]"
 #access_flags = "&u2"
 #this_class = "&u2"
@@ -44,7 +45,42 @@ major_version = "&u2"
 #attributes_count = "&u2"
 #attributes = "&attribute_info[$attributes_count]"
 
+#cp_info {
+#    u1 tag;
+#    u1 info[];
+#}
+
 [cp_info]
+tagged = true
+tag_type = "&u1"
+ 1 = "&CONSTANT_Utf8"
+ 3 = "&CONSTANT_Integer"
+ 4 = "&CONSTANT_Float"
+ 5 = "&CONSTANT_Long"
+ 6 = "&CONSTANT_Double"
+ 7 = "&CONSTANT_Class"
+ 8 = "&CONSTANT_String"
+ 9 = "&CONSTANT_Fieldref"
+10 = "&CONSTANT_Methodref"
+11 = "&CONSTANT_InterfaceMethodref"
+12 = "&CONSTANT_NameAndType"
+15 = "&CONSTANT_MethodHandle"
+16 = "&CONSTANT_MethodType"
+17 = "&CONSTANT_Dynamic"
+18 = "&CONSTANT_InvokeDynamic"
+19 = "&CONSTANT_Module"
+20 = "&CONSTANT_Package"
+
+#CONSTANT_Utf8_info {
+#    u1 tag;
+#    u2 length;
+#    u1 bytes[length];
+#}
+[CONSTANT_Utf8_info]
+tag = "&u1"
+length = "&u2"
+bytes = "&u8[$length]"
+
 [field_info]
 [method_info]
 [attribute_info]
