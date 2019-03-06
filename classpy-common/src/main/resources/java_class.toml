@@ -51,8 +51,8 @@ constant_pool_count = "&u2"
 #}
 
 [cp_info]
-tagged = true
-tag_type = "&u1"
+_tagged = true
+_tag_type = "&u1"
  1 = "&CONSTANT_Utf8"
  3 = "&CONSTANT_Integer"
  4 = "&CONSTANT_Float"
@@ -114,6 +114,14 @@ val = "&i64"
 [CONSTANT_Double_info]
 tag = "&u1"
 val = "&f64"
+
+#CONSTANT_Class_info {
+#    u1 tag;
+#    u2 name_index;
+#}
+[CONSTANT_Class_info]
+tag = "&u1"
+name_index = "&u2"
 
 [field_info]
 [method_info]
