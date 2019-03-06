@@ -53,7 +53,7 @@ public class FileParser2 {
                 if (partFormatter != null && !partFormatter.isEmpty()) {
                     u16.setDesc(String.format(partFormatter, u16.getVal()));
                 } else {
-                    u16.setDesc(Integer.toString(u16.getVal()));
+                    u16.setDesc(u16.getVal().toString());
                 }
             } else if (partSpec.equals("&u32")) {
                 Uint32 u32 = new Uint32();

@@ -8,7 +8,8 @@ import java.util.List;
  * Base class for all file parts.
  */
 public class FilePart {
-    
+
+    private Object val;
     private String name;
     private String desc; // description
     private int offset; // the position of this FilePart in the file
@@ -16,6 +17,8 @@ public class FilePart {
     private List<FilePart> parts; // sub-parts
     
     // Getters & Setters
+    public final Object getVal() {return val;}
+    public final void setVal(Object val) {this.val = val;}
     public final String getName() {return name;}
     public final void setName(String name) {this.name = name;}
     public final String getDesc() {return desc;}
