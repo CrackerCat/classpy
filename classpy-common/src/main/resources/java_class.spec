@@ -1,4 +1,3 @@
-/*
 ClassFile {
     u4             magic;
     u2             minor_version;
@@ -17,22 +16,8 @@ ClassFile {
     u2             attributes_count;
     attribute_info attributes[attributes_count];
 }
-*/
-ClassFile {
-  magic:         u4
-  minor_version: u2
-  major_version: u2
-  constant_pool: table<cp_info>
-  access_flags:  u2
-  this_class:    u2
-  super_class:   u2
-  interfaces:    table<u2>
-  fields:        table<field_info>
-  methods:       table<method_info>
-  attributes:    table<u2>
-}
 
-cp_info:tag<u1> {
+cp_info = u1:{
    1 -> CONSTANT_Utf8
    3 -> CONSTANT_Integer
    4 -> CONSTANT_Float
