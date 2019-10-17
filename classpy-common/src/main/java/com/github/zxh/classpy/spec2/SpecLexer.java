@@ -7,7 +7,20 @@ public class SpecLexer {
 
     public String name() {
         skipWS();
-        return "todo";
+        return "TODO";
+    }
+
+    public void consume(String token) {
+        // TODO
+    }
+
+    public boolean LA(String token) {
+        // TODO
+        return false;
+    }
+
+    public String LA() {
+        return "TODO";
     }
 
     private void skipWS() {
