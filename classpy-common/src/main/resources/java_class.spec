@@ -17,6 +17,22 @@ ClassFile {
     attribute_info attributes[attributes_count];
 }
 
+field_info {
+    u2             access_flags;
+    u2             name_index;
+    u2             descriptor_index;
+    u2             attributes_count;
+    attribute_info attributes[attributes_count];
+}
+
+method_info {
+    u2             access_flags;
+    u2             name_index;
+    u2             descriptor_index;
+    u2             attributes_count;
+    attribute_info attributes[attributes_count];
+}
+
 cp_info = u1:{
    1 -> CONSTANT_Utf8
    3 -> CONSTANT_Integer
@@ -114,12 +130,4 @@ CONSTANT_Module_info {
 CONSTANT_Package_info {
     u1 tag;
     u2 name_index;
-}
-
-field_info {
-  // TODO
-}
-
-method_info {
-  // TODO
 }
