@@ -33,7 +33,8 @@ method_info {
     attribute_info attributes[attributes_count];
 }
 
-cp_info = u1:{
+cp_info = u1: {
+  tag:
    1 -> CONSTANT_Utf8
    3 -> CONSTANT_Integer
    4 -> CONSTANT_Float
@@ -130,4 +131,23 @@ CONSTANT_Module_info {
 CONSTANT_Package_info {
     u1 tag;
     u2 name_index;
+}
+
+/*
+attribute_info {
+    u2 attribute_name_index;
+    u4 attribute_length;
+    u1 info[attribute_length];
+}
+*/
+attribute_info = u2: {
+  $(root.constant_pool...):
+  "ConstantValue_attribute" -> ConstantValue_attribute
+  // ...
+}
+
+ConstantValue_attribute {
+    u2 attribute_name_index;
+    u4 attribute_length;
+    u2 constantvalue_index;
 }
